@@ -1,0 +1,13 @@
+.canvaschart {
+    margin-top: 10px;
+}
+.h1 {
+    margin: auto;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    background-color: blueviolet;
+    border-radius: 20px;
+    font-size: xx-large;
+    font-family: monospace;
+}
