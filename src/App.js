@@ -6,7 +6,7 @@ import axios from "axios";
 
 class App extends React.Component {
   state = {
-    list: [],
+    list: [<option>ABCD</option>],
     company: "",
     options: null,
     loading: false,
@@ -154,7 +154,7 @@ class App extends React.Component {
       })
       .catch((error) => {
         this.setState({
-          loading: false,
+          loading: true,
         });
       });
     console.log(event);
