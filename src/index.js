@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom';
 
 ReactDOM.render(
-    <Router basename="stock-market-analysis">
+    <Router>
     <Switch>
     <Route path="/" exact component={App}/>
     <Route path="/stats/:name" component={Stats}/>
