@@ -11,10 +11,10 @@ import {
 } from 'react-router-dom';
 
 ReactDOM.render(
-    <Router>
+    <Router basename="stock-market-analysis">
     <Switch>
-    <Route path="/stock-market-analysis/" exact component={App}/>
-    <Route path="/stock-market-analysis/stats/:name" component={Stats}/>
+    <Route path="/" exact component={App}/>
+    <Route path="/stats/:name" component={Stats}/>
     <Route component={NotFound}/>
     </Switch>
     </Router>,
