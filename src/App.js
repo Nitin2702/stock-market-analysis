@@ -107,12 +107,12 @@ class App extends React.Component {
         axisY: {
           title: key,
           includeZero: false,
-          valueFormatString: "$##0.00",
+          valueFormatString: "₹##0.00",
           crosshair: {
             enabled: true,
             snapToDataPoint: true,
             labelFormatter: function(e) {
-              return "$" + this.CanvasJS.formatNumber(e.value, "##0.00");
+              return "₹" + this.CanvasJS.formatNumber(e.value, "##0.00");
             }.bind(this),
           },
         },
@@ -120,7 +120,7 @@ class App extends React.Component {
           {
             type: "area",
             xValueFormatString: "YYYY MMM DD",
-            yValueFormatString: "$##0.00",
+            yValueFormatString: "₹##0.00",
             dataPoints: dataPoints,
           },
         ],
