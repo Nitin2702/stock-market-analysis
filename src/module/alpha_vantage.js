@@ -4,7 +4,7 @@ const fs = require("fs");
 
 const url = "https://www.alphavantage.co/query";
 
-const parameters = require('./settings.json');
+//const parameters = require('./settings.json');
 
 const functions = [
   "SMA",
