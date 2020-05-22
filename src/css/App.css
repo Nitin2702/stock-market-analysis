@@ -1,8 +1,7 @@
 .App0 {
     padding: 20px;
     display: grid;
-    max-width: 70vh;
-    margin: auto;
+    max-width: 100%;
 }
 body {
     background-color: #333333;
@@ -37,7 +36,39 @@ body {
 .App1list:focus {
     outline: none;
 }
-a {
+option {
     text-decoration: none;
     display: block;
+}
+select {
+    min-height: 5vh;
+    background-color: darkslategray;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: cursive;
+    font-size: medium;
+}
+.noneSelected {
+    color: white;
+    text-align: center;
+    margin: 50px;
+    font-size: x-large;
+}
+.canvaschart {
+    margin-top: 10px;
+}
+.h1 {
+    margin: auto;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    background-color: blueviolet;
+    border-radius: 20px;
+    font-size: xx-large;
+    font-family: monospace;
+}
+.Stats0 {
+    margin-top: 20px;
 }

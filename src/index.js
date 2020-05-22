@@ -14,7 +14,6 @@ ReactDOM.render(
     <Router>
     <Switch>
     <Route path="/" exact component={App}/>
-    <Route path="/stats/:name" component={Stats}/>
     <Route component={NotFound}/>
     </Switch>
     </Router>,
