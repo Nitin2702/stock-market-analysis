@@ -178,7 +178,7 @@ class App extends React.Component {
           <div className="noneSelected">SELECT A COMPANY</div>
         ) : (
           <div className="loading">
-            <img alt="loading" src={require("./assets/Ring-Loading.gif")} />
+            <img className="loadImg" alt="loading" src={require("./assets/Ring-Loading.gif")} />
           </div>
         )}
       </div>
