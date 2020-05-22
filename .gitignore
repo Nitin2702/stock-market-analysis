@@ -23,7 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 /random
 /module
-data.json
-newbigdata.json
-bigdata.json
-settings.json
+/company_data
+*.json

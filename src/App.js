@@ -1,17 +1,18 @@
 import React from "react";
-import { companyNames } from "./module/alpha_vantage";
 import "./css/App.css";
 import Canvas from "./lib/canvasjs.react";
 import "./css/Stats.css";
+import axios from "axios";
 
 class App extends React.Component {
   state = {
     list: [],
     company: "",
     options: null,
+    loading: false,
     charts: null,
+    fetchedCompanyData: {},
   };
-  bigdata = {};
   CanvasJS = Canvas.CanvasJS;
   CanvasJSChart = Canvas.CanvasJSChart;
 
@@ -24,47 +25,54 @@ class App extends React.Component {
 
   componentDidMount() {
     var components = [];
-    for (var i = 0; i < companyNames.length; i++) {
-      var name = companyNames[i][0];
-      var exists = companyNames[i][1];
-      if (exists === true) {
-        var component = (
-          <option value={name} key={components.length} className="App0list">
-            {name}
-          </option>
-        );
-        components.push(component);
-      } else {
-        var component = (
-          <option
-            key={components.length}
-            disabled
-            value={name}
-            className="App1list"
-          >
-            {name}
-          </option>
-        );
-        components.push(component);
-      }
-    }
-    this.setState({
-      list: components,
-    });
+    var companyNames = [];
+    axios
+      .get("https://graybot-server.herokuapp.com/companies")
+      .then((res) => {
+        companyNames = res.data.list;
+        var fcd = {};
+        for (var i = 0; i < companyNames.length; i++) {
+          var name = companyNames[i];
+          fcd[name] = null;
+          var component = (
+            <option value={name} key={components.length} className="App0list">
+              {name}
+            </option>
+          );
+          components.push(component);
+        }
+        this.setState({
+          list: components,
+          fetchedCompanyData: fcd,
+        });
+      })
+      .catch(console.error);
   }
   async process(pthname) {
-    this.setState({
-      company: pthname,
-    });
     document.title = pthname;
-    this.bigdata = require(`./module/company_data/${pthname}.json`);
+    var bigdata = {};
+    if (this.state.fetchedCompanyData[pthname] == null) {
+      bigdata = await axios.get("https://graybot-server.herokuapp.com/company", {
+        params: { name: pthname },
+      });
+      bigdata = bigdata.data["data"];
+      if (bigdata != null && typeof bigdata != "undefined") {
+        var fcd = this.state.fetchedCompanyData;
+        fcd[pthname] = bigdata;
+        this.setState({
+          fetchedCompanyData: fcd,
+        });
+      }
+    } else {
+      bigdata = this.state.fetchedCompanyData[pthname];
+    }
     var options = [];
     var charts = [];
     var featuristic = {};
-    var technicals = Object.keys(this.bigdata["Technical Analysis"]);
+    var technicals = Object.keys(bigdata["Technical Analysis"]);
     for (var i = 0; i < technicals.length; i++) {
       var date = technicals[i];
-      var datedata = this.bigdata["Technical Analysis"][date];
+      var datedata = bigdata["Technical Analysis"][date];
       var functions = Object.keys(datedata);
       for (var j = 0; j < functions.length; j++) {
         var feature = functions[j];
@@ -130,10 +138,25 @@ class App extends React.Component {
     this.setState({
       options: options,
       charts: charts,
+      company: pthname,
     });
   }
   onSelect(event) {
-    this.process(event.target.value);
+    this.setState({
+      loading: true,
+      company: ""
+    });
+    this.process(event.target.value)
+      .then(() => {
+        this.setState({
+          loading: false,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          loading: false,
+        });
+      });
     console.log(event);
     event.preventDefault();
   }
@@ -149,7 +172,15 @@ class App extends React.Component {
     return (
       <div className="App0">
         <select onChange={this.onSelect}>{this.state.list}</select>
-        {this.state.company.length > 0 ? this.statRender() : <div className="noneSelected">SELECT A COMPANY</div>}
+        {this.state.company.length > 0 ? (
+          this.statRender()
+        ) : this.state.loading == false ? (
+          <div className="noneSelected">SELECT A COMPANY</div>
+        ) : (
+          <div className="loading">
+            <img alt="loading" src={require("./assets/Ring-Loading.gif")} />
+          </div>
+        )}
       </div>
     );
   }
