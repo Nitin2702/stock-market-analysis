@@ -6,7 +6,7 @@ import axios from "axios";
 
 class App extends React.Component {
   state = {
-    list: [<option>ABCD</option>],
+    list: [],
     company: "",
     options: null,
     loading: false,
