@@ -1,0 +1,20 @@
+{
+    "Symbol" : {
+        "RELIANCE.NS" : {
+            "Meta Data": {
+                "Symbol": "RELIANCE.NS",
+                "Last Refreshed": "2020-05-20",
+                "Interval": "weekly",
+                "Time Period": 10,
+                "Series Type": "open",
+                "Time Zone": "US/Eastern"
+              },
+              "Technical Analysis" : {
+                  "Simple Moving Average (SMA)" : {
+                      "2020-05-20": { "SMA": "1244.5040" },
+                      "2020-05-15": { "SMA": "1221.5090" }
+                  }
+              }
+        }
+    }
+}

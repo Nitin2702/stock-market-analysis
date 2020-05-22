@@ -23,5 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 /random
 /module
-*.json
+data.json
+newbigdata.json
+bigdata.json
 settings.json

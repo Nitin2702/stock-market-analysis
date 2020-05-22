@@ -13,11 +13,12 @@ export default class Stats extends React.Component {
     }
 
     componentDidMount(){
+        var pthname = this.props.match.params.name;
         this.setState({
-            company: this.props.match.params.name
+            company: pthname
         });
-        document.title = this.props.match.params.name;
-        this.bigdata = require(`./module/company_data/${this.props.match.params.name}.json`);
+        document.title = pthname;
+        this.bigdata = require(`./module/company_data/${pthname}.json`);
         var options = [];
         var charts = [];
         var featuristic = {};
@@ -87,7 +88,7 @@ export default class Stats extends React.Component {
 
     render(){
         return(<div className="Stats0">
-        <div class="h1">{this.state.company}</div>
+        <div className="h1">{this.state.company}</div>
         {this.state.charts}
         </div>);
     }
