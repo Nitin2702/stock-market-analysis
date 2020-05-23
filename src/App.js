@@ -9,7 +9,7 @@ class App extends React.Component {
     list: [],
     company: "",
     options: null,
-    loading: false,
+    loading: true,
     charts: null,
     fetchedCompanyData: {},
   };
@@ -44,9 +44,10 @@ class App extends React.Component {
         this.setState({
           list: components,
           fetchedCompanyData: fcd,
+          loading: false
         });
       })
-      .catch(console.error);
+      .catch((err)=>{alert(err)});
   }
   async process(pthname) {
     document.title = pthname;
