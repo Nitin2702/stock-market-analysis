@@ -1,10 +1,10 @@
 const axios = require("axios");
 const fs = require("fs");
-//var BigData = require("./bigdata.json");
+var BigData = require("./bigdata.json");
 
 const url = "https://www.alphavantage.co/query";
 
-//const parameters = require('./settings.json');
+const parameters = require('./settings.json');
 
 const functions = [
   "SMA",
@@ -128,7 +128,7 @@ var companiesWithCompletedData = [
   ["ZEEL.NS", false],
 ];
 
-/*function getCompanies() {
+function getCompanies() {
   var companies = [];
   var tcompanies = Nifty50Companies;
   tcompanies.sort();
@@ -138,12 +138,12 @@ var companiesWithCompletedData = [
     else companies.push([tcompanies[i], false]);
   }
   return companies;
-}*/
+}
 
 module.exports.companyNames = companiesWithCompletedData;
 module.exports.functionNames = functions;
 
-/*var PREVIOUS_TIME = +new Date();
+var PREVIOUS_TIME = +new Date();
 var REMAINING_REQUESTS = 500;
 
 module.exports.getFunction = async function(
@@ -161,15 +161,15 @@ module.exports.getFunction = async function(
   return response.data;
 };
 
-/*module.exports.getAllDataForCompany = async function(
+module.exports.getAllDataForCompany = async function(
   symbol = "RELIANCE.NS",
   func = functions
 ) {
   //process.stdout.write(":>\n\r")
   for (var i = 0; i < func.length && REMAINING_REQUESTS > 0; i++) {
-    //process.stdout.write(symbol+" : "+(i+1)+"   \r");
-    await sleep(20000);
-    //process.stdout.write(symbol+" : "+(i+1)+"=>\r");
+    process.stdout.write(`${symbol}-${func[i]} : ${(((i+1)/func.length)*100).toPrecision(2)}% `.padEnd(30)+'\r');
+    if(i>0) await sleep(20000);
+    process.stdout.write(`${symbol}-${func[i]} : ${(((i+1)/func.length)*100).toPrecision(2)}% =>`.padEnd(30)+'\r');
     var data0 = await this.getFunction(symbol, func[i]);
     var initmeta = data0["Meta Data"];
     if (i === 0) this.initialiseBigData(initmeta);
@@ -187,7 +187,7 @@ module.exports.getAllDataForAllCompanies = async function(
   symbols = Nifty50Companies,
   func = functions
 ) {
-  for (var i = 9; i < symbols.length; i++) {
+  for (var i = symbols.indexOf('ITC.NS')+1; i < symbols.length; i++) {
     await this.getAllDataForCompany(symbols[i], func);
   }
 };
@@ -258,7 +258,7 @@ const storeData = (data, path) => {
   }
 };
 
-/*this.getAllDataForAllCompanies().then(()=>{
+this.getAllDataForAllCompanies().then(()=>{
     //storeData(BigData,'newbigdata.json');
     console.log('done');
     console.log('REMAINING REQUEST',REMAINING_REQUESTS);
@@ -269,3 +269,6 @@ const storeData = (data, path) => {
 }).catch(console.error);*/
 //this.distribute(false);
 //console.log(this.companyNames());
+/*this.getAllDataForCompany('ITC.NS',this.functionNames.slice(this.functionNames.indexOf('BOP')+1)).then(()=>{
+  console.log('success');
+}).catch(console.error);*/
